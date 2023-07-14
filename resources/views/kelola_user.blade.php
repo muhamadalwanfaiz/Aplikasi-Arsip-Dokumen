@@ -1,0 +1,216 @@
+@extends('adminlte::page')
+
+@section('title', 'Home Page')
+
+@section('content_header')
+    <h1>Data User</h1>
+@stop
+
+@section('content')
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header fs-1">
+            {{ __('Pengelolaan Dokumen') }}
+        </div>
+        <div class="card-body">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahUserModal">
+                <i class="fa fa-plus mx-1"></i>Tambah Data
+            </button>
+            <hr/>
+            <table id="table-data" class="table table-bordered">
+                <thead>
+                    <tr class="text-center">
+                        <th>NO</th>
+                        <th>NAMA</th>
+                        <th>EMAIL</th>
+                        <th>ROLE</th>
+                        <th>AKSI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $no=1;
+                    @endphp
+                    @foreach($view_users as $users)
+                        <tr>
+                            <td class="text-center">{{$no++}}</td>
+                            <td>{{$users->name}}</td>
+                            <td>{{$users->email}}</td>
+                            <td>{{$users->relationToRole->name}}</td>
+                            <td class="text-center">
+                                <button type="button" id="btn-edit-dokumen" class="btn btn-success" data-toggle="modal" data-target="#editDokModal" data-id="{{ $users->id }}">Edit</button>
+                                <button type="button" id="btn-delete-dokumen" class="btn btn-danger" onclick="deleteConfirmation('{{$users->id}}','{{$users->name}}')">Hapus</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="tambahUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-user mx-2"></i>Tambah Data User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ route ('admin.kelola_user.submit') }}" enctype="multipart/form-data">
+                    @csrf
+                        <div class="form-group">
+                            <label for="name">Nama</label>
+                            <input type="text" class="form-control" name="name" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="roles_id">Role</label>
+                            <select name="roles_id" class="form-control" id="roles_id" required>
+                                <option value="" hidden>-- pilih role --</option>
+                                @foreach($roles as $key => $value)
+                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Kirim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- <div class="modal fade" id="editDokModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Data Dokumen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ route('admin.dokumen.update') }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('PATCH')
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="edit-nama_dokumen">Nama Dokumen</label>
+                                <input type="text" class="form-control" name="nama_dokumen" id="edit-nama_dokumen" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-jenis_dokumens_id">Jenis Dokumen</label>
+                                <select name="jenis_dokumens_id" class="form-control" id="edit-jenis_dokumens_id">
+                                    <option value="" hidden>-- pilih jenis dokumen --</option>
+                                    @foreach($jenis_dokumens as $key => $value)
+                                        <option value="{{ $value->id }}">{{ $value->jenis_dokumen }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-keterangan">Keterangan</label>
+                                <input type="text" class="form-control" name="keterangan" id="edit-keterangan" required>
+                            </div>
+                            <div class="form-group" id="file_dokumen_area">
+                                <label for="edit-file_dokumen">File Dokumen</label>
+                                <input type="file" class="form-control" name="file_dokumen" id="edit-file_dokumen">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" id="edit-id">
+                        <input type="hidden" name="old_file_dokumen" id="edit-old-file_dokumen">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> --}}
+@endsection
+
+@section('js')
+    <script>
+
+        // MENGAMBIL VALUE DARI JENIS DOKUMEN
+        $(function(){
+            $(document).on('click','#btn-edit-dokumen', function(){
+                let id = $(this).data('id');
+                $('file_dokumen_area').empty();
+                $.ajax({
+                    type: "GET",
+                    url: "{{url('/admin/ajaxadmin/dataDokumen')}}/" + id,
+                    datatype: 'json',
+                    success: function(res){
+                        $('#edit-nama_dokumen').val(res.nama_dokumen);
+                        $('#edit-keterangan').val(res.keterangan);
+                        $('#edit-jenis_dokumens_id').val(res.jenis_dokumens_id);
+                        $('#edit-old-file_dokumen').val(res.file_dokumen);
+                        $('#edit-id').val(res.id);
+
+                        if(res.file_dokumen !== null) {
+                            $('file_dokumen_area').append("<img src='"+baseurl+"/storage/file_dokumen/"+res.file_dokumen+"' width='200px'>");
+                        } else {
+                            $('file_dokumen_area').append('[File tidak tersedia]');
+                        }
+
+                    },
+                });
+            });
+        });
+
+        // FUNCTION DELETE PADA JENIS DOKUMEN
+        function deleteConfirmation(npm, nama) {
+            swal.fire({
+                title: "Hapus",
+                type: 'warning',
+                text: "Apakah anda yakin akan menghapus data Dokumen : " + nama +"?!",
+                showCancelButton: !0,
+                confirmButtonText: "Ya lakukan",
+                cancelButtonText: "Tidak, batalkan!",
+                reverseButtons: !0
+            }).then(function (e) {
+                if (e.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "dokumens/delete/"+ npm,
+                        data: {_token: CSRF_TOKEN},
+                        datatype: 'JSON',
+                        success: function (results) {
+                            if (results.success === true) {
+                                swal.fire("Done!", results.message, "success");
+                                // REFRESH PAGE AFTER 2
+                                setTimeout(function(){
+                                    location.reload();
+                                },1000);
+                            } else {
+                                swal.fire("Error!", results.message, "error");
+                            }
+                        }
+                    });
+                } else {
+                    e.dismiss;
+                }
+            }, function (dismiss) {
+                return false;
+            })
+        }
+    </script>
+@stop
