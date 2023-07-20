@@ -31,10 +31,9 @@
             </div>
             <div class="col-md-12">
                 <div class="card-body">
-                    <iframe src="" frameborder="0" width="100%" height="500px">
-                        {{ asset('/storage/file_dokumen/'.$doks) }}
+                    <iframe src="{{ asset('storage/file_dokumen/'.$dok->file_dokumen) }}" frameborder="0" width="100%" height="500px">
                     </iframe>
-                    {{ asset('/storage/file_dokumen/'.$doks) }}
+                    {{ asset('/storage/file_dokumen/'.$dok->file_dokumen) }}
                 </div>
             </div>
         </div>

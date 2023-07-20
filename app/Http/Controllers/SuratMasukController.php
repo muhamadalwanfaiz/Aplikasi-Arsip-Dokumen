@@ -31,4 +31,100 @@ class SuratMasukController extends Controller
 
         return view('surat_masuk',compact('user', 'surat_masuk', 'jenis_dokumens'));
     }
+
+    public function submit_surat_masuk(Request $req)
+    {
+        $validate = $req->validate([
+            'kode' => 'required',
+            'no_surat' => 'required',
+            'nama_surat' => 'required',
+            'keterangan' => 'required',
+            'jenis_dokumens_id' => 'required',
+        ]);
+
+        $surm = new SuratMasuk();
+        $surm->kode = $req->get('kode');
+        $surm->no_surat = $req->get('no_surat');
+        $surm->jenis_dokumens_id = $req->get('jenis_dokumens_id');
+        $surm->nama_surat = $req->get('nama_surat');
+        $surm->keterangan = $req->get('keterangan');
+        
+        if($req->hasFile('file_surat_masuk')) {
+            $extension = $req->file('file_surat_masuk')->extension();
+
+            $filename = 'file_surat_masuk_'.time().'.'.$extension;
+
+            $req->file('file_surat_masuk')->storeAs('public/file_surat_masuk', $filename);
+
+            $surm->file_surat_masuk = $filename;
+        }
+
+        $surm->save();
+
+        $notification = array(
+            'message' => 'Data Surat Masuk Berhasil ditambahkan',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.surat_masuk')->with($notification);
+    }
+
+    public function getDataSuratMasuk($id)
+    {
+        $surm = SuratMasuk::find($id);
+        return response()->json($surm);
+    }
+
+    public function update_surat_masuk(Request $req) 
+    {
+        $surm = SuratMasuk::find($req->get('id'));
+
+        $validate = $req->validate([
+            'kode' => 'required',
+            'no_surat' => 'required',
+            'nama_surat' => 'required',
+            'keterangan' => 'required',
+            'jenis_dokumens_id' => 'required',
+        ]);
+
+        $surm->kode = $req->get('kode');
+        $surm->no_surat = $req->get('no_surat');
+        $surm->jenis_dokumens_id = $req->get('jenis_dokumens_id');
+        $surm->nama_surat = $req->get('nama_surat');
+        $surm->keterangan = $req->get('keterangan');
+
+        if($req->hasFile('file_surat_masuk')) {
+            $extension = $req->file('file_surat_masuk')->extension();
+
+            $filename = 'file_surat_masuk_'.time().'.'.$extension;
+
+            $req->file('file_surat_masuk')->storeAs('public/file_surat_masuk', $filename);
+
+            Storage::delete('public/file_surat_masuk/'.$req->get('old_file_surat_masuk'));
+
+            $surm->file_surat_masuk = $filename;
+        }
+
+        $surm->save();
+        $notification = array(
+            'message' => 'Data Surat Masuk berhasil diubah',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.surat_masuk')->with($notification);
+    }
+
+    public function delete_surat_masuk($id)
+    {
+        $surm = SuratMasuk::find($id);
+
+        $surm->delete();
+
+        $success = true;
+        $message = "Data Surat Masuk berhasil dihapus";
+
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+        ]);
+    }
+
 }

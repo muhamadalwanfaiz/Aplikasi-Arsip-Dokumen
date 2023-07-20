@@ -58,6 +58,13 @@ Route::get('dokumens/view/{id}', [App\Http\Controllers\DokumenController::class,
 
 Route::get('admin/surat_masuks', [App\Http\Controllers\SuratMasukController::class, 'surat_masuks'])->name('admin.surat_masuk')->middleware('is_admin');
 
+Route::post('admin/surat_masuk', [App\Http\Controllers\SuratMasukController::class, 'submit_surat_masuk'])->name('admin.surat_masuk.submit')->middleware('is_admin');
+
+Route::patch('admin/surat_masuk/update', [App\Http\Controllers\SuratMasukController::class, 'update_surat_masuk'])->name('admin.surat_masuk.update')->middleware('is_admin');
+
+Route::get('/admin/ajaxadmin/dataSuratMasuk/{id}', [App\Http\Controllers\SuratMasukController::class, 'getDataSuratMasuk']);
+
+Route::post('admin/surat_masuks/delete/{id}', [App\Http\Controllers\SuratMasukController::class, 'delete_surat_masuk'])->name('admin.surat_masuk.delete')->middleware('is_admin');
 
 //SURAT KELUAR
 

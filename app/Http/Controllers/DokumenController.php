@@ -7,6 +7,7 @@ use App\Models\JenisDokumen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class DokumenController extends Controller
 {
@@ -127,8 +128,6 @@ class DokumenController extends Controller
     public function view_dokumens($id)
     {
         $dok = Dokumen::find($id);
-        $doks = basename(public_path('/storage/file_dokumen/'.$dok->file_dokumen));
-
-        return view('view_dokumen', compact('dok','doks'));
+        return view('view_dokumen', compact('dok'));
     }
 }

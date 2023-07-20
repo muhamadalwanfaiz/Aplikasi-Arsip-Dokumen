@@ -37,11 +37,12 @@
                             <td class="text-center">{{$no++}}</td>
                             <td>{{$dok->nama_dokumen}}</td>
                             <td>{{$dok->relationToJenisDokumen->jenis_dokumen}}</td>
-                            <td>{{$dok->created_at}}</td>
+                            <td>{{ \Carbon\Carbon::parse($dok->created_at)->format('d/m/Y')}}</td>
                             <td>{{$dok->keterangan}}</td>
                             <td class="text-center">
-                                {{-- <a href="{{ route ('admin.dokumen.view', $dok->id) }}">Lihat</a> --}}
-                                <button type="button" id="btn-edit-dokumen" class="btn btn-success" data-toggle="modal" data-target="#editDokModal" data-id="{{ $dok->id }}">Edit</button>
+                                <a href="{{ url ('dokumens/view', $dok->id) }}">Lihat</a>
+                                <a href="{{ url('/download', $dok->file_dokumen) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
+                                <button type="button" id="btn-edit-dokumen" class="btn btn-warning" data-toggle="modal" data-target="#editDokModal" data-id="{{ $dok->id }}">Edit</button>
                                 <button type="button" id="btn-delete-dokumen" class="btn btn-danger" onclick="deleteConfirmation('{{$dok->id}}','{{$dok->nama_dokumen}}')">Hapus</button>
                             </td>
                         </tr>
