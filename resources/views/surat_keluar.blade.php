@@ -13,7 +13,7 @@
             {{ __('Pengelolaan Surat Keluar') }}
         </div>
         <div class="card-body">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahJenisDokModal">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahSuratKeluar">
                 <i class="fa fa-plus mx-1"></i>Tambah Data
             </button>
             <hr/>
@@ -38,12 +38,12 @@
                             <td class="text-center">{{$no++}}</td>
                             <td>{{$keluar->kode}}</td>
                             <td>{{$keluar->no_surat}}</td>
-                            <td>{{$keluar->created_at}}</td>
+                            <td>{{ \Carbon\Carbon::parse($keluar->created_at)->format('d/m/Y')}}</td>
                             <td>{{$keluar->nama_surat}}</td>
                             <td>{{$keluar->keterangan}}</td>
                             <td class="text-center">
-                                <button type="button" id="btn-edit-jenisDok" class="btn btn-success" data-toggle="modal" data-target="#editJenisDokModal" data-id="{{ $keluar->id }}">Edit</button>
-                                <button type="button" id="btn-delete-jenisDok" class="btn btn-danger" onclick="deleteConfirmation('{{$keluar->id}}','{{$keluar->no_surat}}')">Hapus</button>
+                                <button type="button" id="btn-edit-suratKeluar" class="btn btn-success" data-toggle="modal" data-target="#editSuratKeluar" data-id="{{ $keluar->id }}">Edit</button>
+                                <button type="button" id="btn-delete-suratKeluar" class="btn btn-danger" onclick="deleteConfirmation('{{$keluar->id}}','{{$keluar->nama_surat}}')">Hapus</button>
                             </td>
                         </tr>
                     @endforeach
@@ -53,22 +53,47 @@
     </div>
 </div>
 
-{{-- <div class="modal fade" id="tambahJenisDokModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambahSuratKeluar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-users mx-2"></i>Tambah Data Jenis Dokumen</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-users mx-2"></i>Tambah Data Surat Keluar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route ('admin.jenis_dokumen.submit') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route ('admin.surat_keluar.submit') }}" enctype="multipart/form-data">
                     @csrf
-                        <div class="form-group">
-                            <label for="jenis_dokumen">Jenis Dokumen</label>
-                            <input type="text" class="form-control" name="jenis_dokumen" id="jenis_dokumen" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="kode">Kode</label>
+                        <input type="text" class="form-control" name="kode" id="kode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="no_surat">No Surat</label>
+                        <input type="text" class="form-control" name="no_surat" id="no_surat" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_dokumens_id">Jenis Dokumen</label>
+                        <select name="jenis_dokumens_id" class="form-control" id="jenis_dokumens_id" required>
+                            <option value="" hidden>-- pilih jenis dokumen --</option>
+                            @foreach($jenis_dokumens as $key => $value)
+                                <option value="{{ $value->id }}">{{ $value->jenis_dokumen }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nama_surat">Nama Surat</label>
+                        <input type="text" class="form-control" name="nama_surat" id="nama_surat" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan</label>
+                        <input type="text" class="form-control" name="keterangan" id="keterangan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="file_surat_keluar">File Surat Masuk</label>
+                        <input type="file" class="form-control" name="file_surat_keluar" id="file_surat_keluar" required>
+                    </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -79,24 +104,49 @@
     </div>
 </div>
 
-<div class="modal fade" id="editJenisDokModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editSuratKeluar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Data Pasien</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Data Surat Keluar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('admin.jenis_dokumen.update') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('admin.surat_keluar.update') }}" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="edit-jenis_dokumen">Jenis Dokumen</label>
-                                <input type="text" class="form-control" name="jenis_dokumen" id="edit-jenis_dokumen" required>
+                                <label for="edit-kode">Kode</label>
+                                <input type="text" class="form-control" name="kode" id="edit-kode" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-no_surat">No Surat</label>
+                                <input type="text" class="form-control" name="no_surat" id="edit-no_surat" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-jenis_dokumens_id">Jenis Dokumen</label>
+                                <select name="jenis_dokumens_id" class="form-control" id="edit-jenis_dokumens_id">
+                                    <option value="" hidden>-- pilih jenis dokumen --</option>
+                                    @foreach($jenis_dokumens as $key => $value)
+                                        <option value="{{ $value->id }}">{{ $value->jenis_dokumen }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-nama_surat">No Surat</label>
+                                <input type="text" class="form-control" name="nama_surat" id="edit-nama_surat" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-keterangan">No Surat</label>
+                                <input type="text" class="form-control" name="keterangan" id="edit-keterangan" required>
+                            </div>
+                            <div class="form-group" id="file_dokumen_area">
+                                <label for="edit-file_surat_keluar">File Surat Masuk</label>
+                                <input type="file" class="form-control" name="file_surat_keluar" id="edit-file_surat_keluar">
                             </div>
                         </div>
                     </div>
@@ -109,65 +159,74 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 @endsection
 
 @section('js')
     <script>
 
     //     // MENGAMBIL VALUE DARI JENIS DOKUMEN
-    //     $(function(){
-    //         $(document).on('click','#btn-edit-jenisDok', function(){
-    //             let id = $(this).data('id');
-    //             $.ajax({
-    //                 type: "GET",
-    //                 url: "{{url('/admin/ajaxadmin/dataJenisDokumen')}}/" + id,
-    //                 datatype: 'json',
-    //                 success: function(res){
-    //                     $('#edit-jenis_dokumen').val(res.jenis_dokumen);
-    //                     $('#edit-id').val(res.id);
-    //                 },
-    //             });
-    //         });
-    //     });
+        $(document).on('click','#btn-edit-suratKeluar', function(){
+                let id = $(this).data('id');
+                $.ajax({
+                    type: "GET",
+                    url: "{{url('/admin/ajaxadmin/dataSuratKeluar')}}/" + id,
+                    datatype: 'json',
+                    success: function(res){
+                        $('#edit-kode').val(res.kode);
+                        $('#edit-no_surat').val(res.no_surat);
+                        $('#edit-jenis_dokumens_id').val(res.jenis_dokumens_id);
+                        $('#edit-nama_surat').val(res.nama_surat);
+                        $('#edit-keterangan').val(res.keterangan);
+                        $('#edit-id').val(res.id);
 
-    //     // FUNCTION DELETE PADA JENIS DOKUMEN
-    //     function deleteConfirmation(npm, nama) {
-    //         swal.fire({
-    //             title: "Hapus",
-    //             type: 'warning',
-    //             text: "Apakah anda yakin akan menghapus data Jenis Dokumen : " + nama +"?!",
-    //             showCancelButton: !0,
-    //             confirmButtonText: "Ya lakukan",
-    //             cancelButtonText: "Tidak, batalkan!",
-    //             reverseButtons: !0
-    //         }).then(function (e) {
-    //             if (e.value === true) {
-    //                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                        if(res.file_surat_keluar !== null) {
+                            $('file_surat_keluar_area').append("<img src='"+baseurl+"/storage/file_surat_keluar/"+res.file_surat_keluar+"' width='200px'>");
+                        } else {
+                            $('file_surat_keluar_area').append('[File tidak tersedia]');
+                        }
 
-    //                 $.ajax({
-    //                     type: 'POST',
-    //                     url: "jenis_dokumens/delete/"+ npm,
-    //                     data: {_token: CSRF_TOKEN},
-    //                     datatype: 'JSON',
-    //                     success: function (results) {
-    //                         if (results.success === true) {
-    //                             swal.fire("Done!", results.message, "success");
-    //                             // REFRESH PAGE AFTER 2
-    //                             setTimeout(function(){
-    //                                 location.reload();
-    //                             },1000);
-    //                         } else {
-    //                             swal.fire("Error!", results.message, "error");
-    //                         }
-    //                     }
-    //                 });
-    //             } else {
-    //                 e.dismiss;
-    //             }
-    //         }, function (dismiss) {
-    //             return false;
-    //         })
-    //     }
+                    },
+                });
+            });
+
+        // FUNCTION DELETE PADA JENIS DOKUMEN
+        function deleteConfirmation(npm, nama) {
+            swal.fire({
+                title: "Hapus",
+                type: 'warning',
+                text: "Apakah anda yakin akan menghapus data Surat Keluar : " + nama +"?!",
+                showCancelButton: !0,
+                confirmButtonText: "Ya lakukan",
+                cancelButtonText: "Tidak, batalkan!",
+                reverseButtons: !0
+            }).then(function (e) {
+                if (e.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "surat_keluars/delete/"+ npm,
+                        data: {_token: CSRF_TOKEN},
+                        datatype: 'JSON',
+                        success: function (results) {
+                            if (results.success === true) {
+                                swal.fire("Done!", results.message, "success");
+                                // REFRESH PAGE AFTER 2
+                                setTimeout(function(){
+                                    location.reload();
+                                },1000);
+                            } else {
+                                swal.fire("Error!", results.message, "error");
+                            }
+                        }
+                    });
+                } else {
+                    e.dismiss;
+                }
+            }, function (dismiss) {
+                return false;
+            })
+        }
     </script>
 @stop

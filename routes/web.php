@@ -70,6 +70,14 @@ Route::post('admin/surat_masuks/delete/{id}', [App\Http\Controllers\SuratMasukCo
 
 Route::get('admin/surat_keluars', [App\Http\Controllers\SuratKeluarController::class, 'surat_keluars'])->name('admin.surat_keluar')->middleware('is_admin');
 
+Route::post('admin/surat_keluar', [App\Http\Controllers\SuratKeluarController::class, 'submit_surat_keluar'])->name('admin.surat_keluar.submit')->middleware('is_admin');
+
+Route::patch('admin/surat_keluar/update', [App\Http\Controllers\SuratKeluarController::class, 'update_surat_keluar'])->name('admin.surat_keluar.update')->middleware('is_admin');
+
+Route::get('/admin/ajaxadmin/dataSuratKeluar/{id}', [App\Http\Controllers\SuratKeluarController::class, 'getDataSuratKeluar']);
+
+Route::post('admin/surat_keluars/delete/{id}', [App\Http\Controllers\SuratKeluarController::class, 'delete_surat_keluar'])->name('admin.surat_keluar.delete')->middleware('is_admin');
+
 //SEMUA SURAT
 
 
@@ -80,4 +88,10 @@ Route::get('admin/dokters', [App\Http\Controllers\AdminController::class, 'dokte
 
 Route::get('admin/kelola_users', [\App\Http\Controllers\AdminController::class, 'user_view'])->name('admin.kelola_users')->middleware('is_admin');
 
-Route::get('admin/kelola_user', [App\Http\Controllers\AdminController::class, 'submit_kelola_user'])->name('admin.kelola_user.submit')->middleware('is_admin');
+Route::post('admin/kelola_user', [App\Http\Controllers\AdminController::class, 'submit_user'])->name('admin.kelola_user.submit')->middleware('is_admin');
+
+Route::patch('admin/kelola_user/update', [App\Http\Controllers\AdminController::class, 'update_user'])->name('admin.kelola_user.update')->middleware('is_admin');
+
+Route::get('/admin/ajaxadmin/dataUser/{id}', [App\Http\Controllers\AdminController::class, 'getDataUser']);
+
+Route::post('admin/kelola_users/delete/{id}', [App\Http\Controllers\AdminController::class, 'delete_user'])->name('admin.kelola_user.delete')->middleware('is_admin');

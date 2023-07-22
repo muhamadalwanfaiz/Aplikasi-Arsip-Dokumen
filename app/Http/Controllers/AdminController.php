@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -120,7 +121,7 @@ class AdminController extends Controller
         $users = new User();
         $users->name = $req->get('name');
         $users->email = $req->get('email');
-        $users->password = $req->get('password');
+        $users->password = Hash::make($req->get('password'));
         $users->roles_id = $req->get('roles_id');
 
         $users->save();
@@ -128,7 +129,56 @@ class AdminController extends Controller
             'message' => 'Data User berhasil ditambahkan',
             'alert-type' => 'success'
         );
+        
 
         return redirect()->route('admin.jenis_dokumen')->with($notification);
+    }
+
+    public function getDataUser($id)
+    {
+        $user = User::find($id);
+        return response()->json($user);
+    }
+
+    public function update_user(Request $req) 
+    {
+        $users = User::find($req->get('id'));
+
+        $validate = $req->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'roles_id' => 'required',
+        ]);
+
+        $users->name = $req->get('name');
+        $users->email = $req->get('email');
+        $users->password = Hash::make($req->get('password'));
+        $users->roles_id = $req->get('roles_id');
+
+        $users->save();
+
+        $notification = array(
+            'message' => 'Data User berhasil diubah',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('admin.kelola_users')->with($notification);
+
+    }
+
+    public function delete_user($id)
+    {
+        $user = User::find($id);
+
+        $user->delete();
+
+        $success = true;
+        $message = "Data User berhasil dihapus";
+
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+        ]);
     }
 }
