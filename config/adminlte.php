@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>Arsip</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/folder-64.png',
+    'logo' => '<b>SDN Cintanagara</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/logo-sd-cintanagara.png',
     'logo_img_class' => 'brand-image  elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -89,8 +89,8 @@ return [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'Auth Logo',
             'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'width' => 60,
+            'height' => 60,
         ],
     ],
 
@@ -109,11 +109,11 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/folder-64.png',
+            'path' => 'vendor/adminlte/dist/img/logo-sd-cintanagara.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'width' => 80,
+            'height' => 80,
         ],
     ],
 
@@ -365,13 +365,6 @@ return [
             'url'  => 'admin/kelola_users',
             'icon' => 'fas fa-fw fa-user',
             'can'  => 'isAdmin',
-        ],
-
-        [
-            'text' => 'Ubah Password',
-            'url'  => 'user/kelola_users',
-            'icon' => 'fas fa-fw fa-user',
-            'can'  => 'isUser',
         ],
 
     ],

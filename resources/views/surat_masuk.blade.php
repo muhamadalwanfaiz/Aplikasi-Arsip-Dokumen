@@ -23,7 +23,6 @@
                         <th>NO</th>
                         <th>KODE</th>
                         <th>NO SURAT</th>
-                        <th>JENIS SURAT</th>
                         <th>TANGGAL MASUK</th>
                         <th>NAMA SURAT</th>
                         <th>KETERANGAN</th>
@@ -39,7 +38,6 @@
                             <td class="text-center">{{$no++}}</td>
                             <td>{{$masuk->kode}}</td>
                             <td>{{$masuk->no_surat}}</td>
-                            <td>{{$masuk->jenis_dokumens_id}}</td>
                             <td>{{ \Carbon\Carbon::parse($masuk->created_at)->format('d/m/Y')}}</td>
                             <td>{{$masuk->nama_surat}}</td>
                             <td>{{$masuk->keterangan}}</td>

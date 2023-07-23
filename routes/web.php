@@ -100,3 +100,12 @@ Route::patch('admin/kelola_user/update', [App\Http\Controllers\AdminController::
 Route::get('/admin/ajaxadmin/dataUser/{id}', [App\Http\Controllers\AdminController::class, 'getDataUser']);
 
 Route::post('admin/kelola_users/delete/{id}', [App\Http\Controllers\AdminController::class, 'delete_user'])->name('admin.kelola_user.delete')->middleware('is_admin');
+
+
+// Halaman yang dapat diakses oleh user
+
+Route::get('user/dokumens', [App\Http\Controllers\UserDokumenController::class, 'dokumens'])->name('admin.dokumen');
+
+Route::get('user/surat_masuks', [App\Http\Controllers\UserSuratMasukController::class, 'surat_masuks'])->name('admin.surat_masuk');
+
+Route::get('user/surat_keluars', [App\Http\Controllers\UserSuratKeluarController::class, 'surat_keluars'])->name('admin.surat_keluar');

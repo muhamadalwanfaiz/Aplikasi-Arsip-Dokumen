@@ -8,7 +8,7 @@
 
 @section('content')
 
-<div class="container-fluid">
+{{-- <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card bg-primary">
@@ -39,8 +39,57 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-primary">
+                    <i class="fas fa-file"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Dokumen</span>
+                    <span class="info-box-number">0000</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-success">
+                    <i class="far fa-envelope"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Surat Masuk</span>
+                    <span class="info-box-number">0000</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-success">
+                    <i class="far fa-envelope"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Surat Keluar</span>
+                    <span class="info-box-number">0000</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-warning">
+                    <i class="fas fa-user"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">User</span>
+                    <span class="info-box-number">0000</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container-fluid">
     <div class="row justify-content-center">
