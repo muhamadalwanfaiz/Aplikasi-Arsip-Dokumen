@@ -38,8 +38,8 @@
                             <td>{{$users->email}}</td>
                             <td>{{$users->relationToRole->name}}</td>
                             <td class="text-center">
-                                <button type="button" id="btn-edit-user" class="btn btn-success" data-toggle="modal" data-target="#editUserModal" data-id="{{ $users->id }}">Edit</button>
-                                <button type="button" id="btn-delete-user" class="btn btn-danger" onclick="deleteConfirmation('{{$users->id}}','{{$users->name}}')">Hapus</button>
+                                <button type="button" id="btn-edit-user" class="btn btn-warning" data-toggle="modal" data-target="#editUserModal" data-id="{{ $users->id }}"><i class="fas fa-fw fa-edit"></i></button>
+                                <button type="button" id="btn-delete-user" class="btn btn-danger" onclick="deleteConfirmation('{{$users->id}}','{{$users->name}}')"><i class="fas fa-fw fa-trash"></i></button>
                             </td>
                         </tr>
                     @endforeach

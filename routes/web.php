@@ -52,11 +52,6 @@ Route::get('/admin/ajaxadmin/dataDokumen/{id}', [App\Http\Controllers\DokumenCon
 
 Route::post('admin/dokumens/delete/{id}', [App\Http\Controllers\DokumenController::class, 'delete_dokumen'])->name('admin.dokumen.delete')->middleware('is_admin');
 
-Route::get('/show-pdf/{id}', [App\Http\Controllers\DokumenController::class, 'showPdf'])->name('admin.show_pdf.view');
-
-Route::get('/open-pdf/{id}', [App\Http\Controllers\DokumenController::class, 'openPdf'])->name('admin.open_pdf.view');
-
-
 Route::get('/download/{id}',  [App\Http\Controllers\DokumenController::class, 'downloadFile'])->name('pdf.download');
 
 
@@ -72,6 +67,8 @@ Route::get('/admin/ajaxadmin/dataSuratMasuk/{id}', [App\Http\Controllers\SuratMa
 
 Route::post('admin/surat_masuks/delete/{id}', [App\Http\Controllers\SuratMasukController::class, 'delete_surat_masuk'])->name('admin.surat_masuk.delete')->middleware('is_admin');
 
+Route::get('/download/{id}',  [App\Http\Controllers\SuratMasukController::class, 'downloadFile'])->name('pdf.download');
+
 //SURAT KELUAR
 
 Route::get('admin/surat_keluars', [App\Http\Controllers\SuratKeluarController::class, 'surat_keluars'])->name('admin.surat_keluar')->middleware('is_admin');
@@ -83,6 +80,8 @@ Route::patch('admin/surat_keluar/update', [App\Http\Controllers\SuratKeluarContr
 Route::get('/admin/ajaxadmin/dataSuratKeluar/{id}', [App\Http\Controllers\SuratKeluarController::class, 'getDataSuratKeluar']);
 
 Route::post('admin/surat_keluars/delete/{id}', [App\Http\Controllers\SuratKeluarController::class, 'delete_surat_keluar'])->name('admin.surat_keluar.delete')->middleware('is_admin');
+
+Route::get('/download/{id}',  [App\Http\Controllers\SuratKeluarController::class, 'downloadFile'])->name('pdf.download');
 
 //SEMUA SURAT
 

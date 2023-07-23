@@ -126,4 +126,23 @@ class SuratKeluarController extends Controller
             'message' => $message,
         ]);
     }
+
+    public function downloadFile($id)
+    {
+        $file = SuratKeluar::find($id);
+        $filePath = $file->file_surat_keluar;
+        $path = storage_path('app/public/file_surat_keluar/' . $filePath);
+
+        if (!Storage::exists('public/file_surat_keluar/' . $filePath)) {
+            abort(404);
+        }
+
+        return response()->download('storage/file_surat_keluar/' . $filePath);
+
+        $notification = array(
+            'message' => 'Data Dokumen berhasil diunduh',
+            'alert-type' => 'success',
+        );
+        return redirect()->route('admin.surat_keluar')->with($notification);
+    }
 }

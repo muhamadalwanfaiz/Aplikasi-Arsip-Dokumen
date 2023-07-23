@@ -323,6 +323,14 @@ return [
             'icon'        => 'fas fa-fw  fa-file', 
             'can'         => 'isAdmin',
         ],
+
+        [
+            'text'        => 'Dokumen',
+            'url'         => 'user/dokumens',
+            'icon'        => 'fas fa-fw  fa-file', 
+            'can'         => 'isUser',
+        ],
+
         [
             'text'    => 'Surat',
             'icon'    => 'fas fa-fw fa-envelope',
@@ -337,6 +345,19 @@ return [
                     'url'  => 'admin/surat_keluars',
                     'can'  => 'isAdmin',
                 ],
+
+
+                [
+                    'text' => 'Surat Masuk',
+                    'url'  => 'user/surat_masuks',
+                    'can'  => 'isUser',
+                ],
+                [
+                    'text' => 'Surat Keluar',
+                    'url'  => 'user/surat_keluars',
+                    'can'  => 'isUser',
+                ],
+
             ],
         ],
         [
@@ -345,6 +366,14 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'can'  => 'isAdmin',
         ],
+
+        [
+            'text' => 'Ubah Password',
+            'url'  => 'user/kelola_users',
+            'icon' => 'fas fa-fw fa-user',
+            'can'  => 'isUser',
+        ],
+
     ],
 
     /*

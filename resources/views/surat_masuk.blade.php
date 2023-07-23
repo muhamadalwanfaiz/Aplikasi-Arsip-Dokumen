@@ -44,8 +44,9 @@
                             <td>{{$masuk->nama_surat}}</td>
                             <td>{{$masuk->keterangan}}</td>
                             <td class="text-center">
-                                <button type="button" id="btn-edit-suratMasuk" class="btn btn-success" data-toggle="modal" data-target="#editSuratMasuk" data-id="{{ $masuk->id }}">Edit</button>
-                                <button type="button" id="btn-delete-suratMasuk" class="btn btn-danger" onclick="deleteConfirmation('{{$masuk->id}}','{{$masuk->nama_surat}}')">Hapus</button>
+                                <a href="{{ route('pdf.download', ['id' => $masuk->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
+                                <button type="button" id="btn-edit-suratMasuk" class="btn btn-warning" data-toggle="modal" data-target="#editSuratMasuk" data-id="{{ $masuk->id }}"><i class="fas fa-fw fa-edit"></i></button>
+                                <button type="button" id="btn-delete-suratMasuk" class="btn btn-danger" onclick="deleteConfirmation('{{$masuk->id}}','{{$masuk->nama_surat}}')"><i class="fas fa-fw fa-trash"></i></button>
                             </td>
                         </tr>
                     @endforeach

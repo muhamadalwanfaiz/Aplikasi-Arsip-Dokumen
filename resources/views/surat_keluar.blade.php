@@ -42,8 +42,9 @@
                             <td>{{$keluar->nama_surat}}</td>
                             <td>{{$keluar->keterangan}}</td>
                             <td class="text-center">
-                                <button type="button" id="btn-edit-suratKeluar" class="btn btn-success" data-toggle="modal" data-target="#editSuratKeluar" data-id="{{ $keluar->id }}">Edit</button>
-                                <button type="button" id="btn-delete-suratKeluar" class="btn btn-danger" onclick="deleteConfirmation('{{$keluar->id}}','{{$keluar->nama_surat}}')">Hapus</button>
+                                <a href="{{ route('pdf.download', ['id' => $keluar->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
+                                <button type="button" id="btn-edit-suratKeluar" class="btn btn-warning" data-toggle="modal" data-target="#editSuratKeluar" data-id="{{ $keluar->id }}"><i class="fas fa-fw fa-edit"></i></button>
+                                <button type="button" id="btn-delete-suratKeluar" class="btn btn-danger" onclick="deleteConfirmation('{{$keluar->id}}','{{$keluar->nama_surat}}')"><i class="fas fa-fw fa-trash"></i></button>
                             </td>
                         </tr>
                     @endforeach

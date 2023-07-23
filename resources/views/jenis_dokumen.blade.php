@@ -34,8 +34,8 @@
                             <td class="text-center">{{$no++}}</td>
                             <td>{{$jenis_dok->jenis_dokumen}}</td>
                             <td class="text-center">
-                                <button type="button" id="btn-edit-jenisDok" class="btn btn-success" data-toggle="modal" data-target="#editJenisDokModal" data-id="{{ $jenis_dok->id }}">Edit</button>
-                                <button type="button" id="btn-delete-jenisDok" class="btn btn-danger" onclick="deleteConfirmation('{{$jenis_dok->id}}','{{$jenis_dok->jenis_dokumen}}')">Hapus</button>
+                                <button type="button" id="btn-edit-jenisDok" class="btn btn-warning" data-toggle="modal" data-target="#editJenisDokModal" data-id="{{ $jenis_dok->id }}"><i class="fas fa-fw fa-edit"></i></button>
+                                <button type="button" id="btn-delete-jenisDok" class="btn btn-danger" onclick="deleteConfirmation('{{$jenis_dok->id}}','{{$jenis_dok->jenis_dokumen}}')"><i class="fas fa-fw fa-trash"></i></button>
                             </td>
                         </tr>
                     @endforeach

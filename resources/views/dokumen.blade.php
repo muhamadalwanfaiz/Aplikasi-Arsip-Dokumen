@@ -40,7 +40,6 @@
                             <td>{{ \Carbon\Carbon::parse($dok->created_at)->format('d/m/Y')}}</td>
                             <td>{{$dok->keterangan}}</td>
                             <td class="text-center">
-                                {{-- <a href="{{ route('admin.open_pdf.view', $dok->id) }}"><button type="button" class="btn btn-primary">Open</button></a> --}}
                                 <a href="{{ route('pdf.download', ['id' => $dok->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
                                 <button type="button" id="btn-edit-dokumen" class="btn btn-warning" data-toggle="modal" data-target="#editDokModal" data-id="{{ $dok->id }}"><i class="fas fa-fw fa-edit"></i></button>
                                 <button type="button" id="btn-delete-dokumen" class="btn btn-danger" onclick="deleteConfirmation('{{$dok->id}}','{{$dok->nama_dokumen}}')"><i class="fas fa-fw fa-trash"></i></button>
@@ -131,7 +130,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="edit-old_file_dokumen">Nama File Dokumen</label>
-                                <input type="text" class="form-control" name="file_dokumen" id="edit-old_file_dokumen" required>
+                                <input type="text" class="form-control" name="file_dokumen" id="edit-old_file_dokumen" readonly>
                             </div>
                             <div class="form-group" id="file_dokumen_area">
                                 <label for="edit-file_dokumen">Unggah File Dokumen Baru</label>

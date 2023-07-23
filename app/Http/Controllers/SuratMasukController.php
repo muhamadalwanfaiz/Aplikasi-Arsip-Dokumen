@@ -127,4 +127,23 @@ class SuratMasukController extends Controller
         ]);
     }
 
+    public function downloadFile($id)
+    {
+        $file = SuratMasuk::find($id);
+        $filePath = $file->file_surat_masuk;
+        $path = storage_path('app/public/file_surat_masuk/' . $filePath);
+
+        if (!Storage::exists('public/file_surat_masuk/' . $filePath)) {
+            abort(404);
+        }
+
+        return response()->download('storage/file_surat_masuk/' . $filePath);
+
+        $notification = array(
+            'message' => 'Data Dokumen berhasil diunduh',
+            'alert-type' => 'success',
+        );
+        return redirect()->route('admin.surat_masuk')->with($notification);
+    }
+
 }
