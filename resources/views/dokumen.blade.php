@@ -40,10 +40,10 @@
                             <td>{{ \Carbon\Carbon::parse($dok->created_at)->format('d/m/Y')}}</td>
                             <td>{{$dok->keterangan}}</td>
                             <td class="text-center">
-                                <a href="{{ url ('dokumens/view', $dok->id) }}">Lihat</a>
-                                <a href="{{ url('/download', $dok->file_dokumen) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
-                                <button type="button" id="btn-edit-dokumen" class="btn btn-warning" data-toggle="modal" data-target="#editDokModal" data-id="{{ $dok->id }}">Edit</button>
-                                <button type="button" id="btn-delete-dokumen" class="btn btn-danger" onclick="deleteConfirmation('{{$dok->id}}','{{$dok->nama_dokumen}}')">Hapus</button>
+                                {{-- <a href="{{ route('admin.open_pdf.view', $dok->id) }}"><button type="button" class="btn btn-primary">Open</button></a> --}}
+                                <a href="{{ route('pdf.download', ['id' => $dok->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
+                                <button type="button" id="btn-edit-dokumen" class="btn btn-warning" data-toggle="modal" data-target="#editDokModal" data-id="{{ $dok->id }}"><i class="fas fa-fw fa-edit"></i></button>
+                                <button type="button" id="btn-delete-dokumen" class="btn btn-danger" onclick="deleteConfirmation('{{$dok->id}}','{{$dok->nama_dokumen}}')"><i class="fas fa-fw fa-trash"></i></button>
                             </td>
                         </tr>
                     @endforeach
@@ -129,15 +129,19 @@
                                 <label for="edit-keterangan">Keterangan</label>
                                 <input type="text" class="form-control" name="keterangan" id="edit-keterangan" required>
                             </div>
+                            <div class="form-group">
+                                <label for="edit-old_file_dokumen">Nama File Dokumen</label>
+                                <input type="text" class="form-control" name="file_dokumen" id="edit-old_file_dokumen" required>
+                            </div>
                             <div class="form-group" id="file_dokumen_area">
-                                <label for="edit-file_dokumen">File Dokumen</label>
+                                <label for="edit-file_dokumen">Unggah File Dokumen Baru</label>
                                 <input type="file" class="form-control" name="file_dokumen" id="edit-file_dokumen">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="id" id="edit-id">
-                        <input type="hidden" name="old_file_dokumen" id="edit-old-file_dokumen">
+                        <input type="hidden" name="old_file_dokumen" id="edit-old_file_dokumen">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-success">Update</button>
                     </div>
@@ -164,11 +168,11 @@
                         $('#edit-nama_dokumen').val(res.nama_dokumen);
                         $('#edit-keterangan').val(res.keterangan);
                         $('#edit-jenis_dokumens_id').val(res.jenis_dokumens_id);
-                        $('#edit-old-file_dokumen').val(res.file_dokumen);
+                        $('#edit-old_file_dokumen').val(res.file_dokumen);
                         $('#edit-id').val(res.id);
 
                         if(res.file_dokumen !== null) {
-                            $('file_dokumen_area').append("<img src='"+baseurl+"/storage/file_dokumen/"+res.file_dokumen+"' width='200px'>");
+                            $('file_dokumen_area').append("<img src='"+baseurl+"storage/file_dokumen/"+res.file_dokumen+"' width='200px'>");
                         } else {
                             $('file_dokumen_area').append('[File tidak tersedia]');
                         }

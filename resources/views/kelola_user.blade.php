@@ -72,7 +72,7 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" id="password" required>
+                            <input type="password" class="form-control" name="password" id="password" value="12345" onfocus="handleFocus()" required>
                         </div>
                         <div class="form-group">
                             <label for="roles_id">Role</label>
@@ -116,7 +116,7 @@
                         </div>
                         <div class="form-group">
                             <label for="edit-password">Password</label>
-                            <input type="password" class="form-control" name="password" id="edit-password" required decrypt>
+                            <input type="password" class="form-control" name="password" id="edit-password" value="12345" onfocus="handleFocus()"  required>
                         </div>
                         <div class="form-group">
                             <label for="edit-roles_id">Role</label>
@@ -154,7 +154,7 @@
                     success: function(res){
                         $('#edit-name').val(res.name);
                         $('#edit-email').val(res.email);
-                        $('#edit-password').val(res.password);
+                        // $('#edit-password').val(res.password);
                         $('#edit-roles_id').val(res.roles_id);
                         $('#edit-id').val(res.id);
                     },
@@ -199,6 +199,16 @@
             }, function (dismiss) {
                 return false;
             })
+        }
+
+        function handleFocus() {
+            var passwordInput = $('#edit-password');
+            var defaultValue = '12345'; // Ganti dengan nilai default 
+
+            // Jika nilai input sama dengan nilai default, kosongkan input ketika ada fokus (mulai pengisian data)
+            if (passwordInput.val() === defaultValue) {
+                passwordInput.val('');
+            }
         }
     </script>
 @stop

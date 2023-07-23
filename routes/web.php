@@ -52,7 +52,13 @@ Route::get('/admin/ajaxadmin/dataDokumen/{id}', [App\Http\Controllers\DokumenCon
 
 Route::post('admin/dokumens/delete/{id}', [App\Http\Controllers\DokumenController::class, 'delete_dokumen'])->name('admin.dokumen.delete')->middleware('is_admin');
 
-Route::get('dokumens/view/{id}', [App\Http\Controllers\DokumenController::class, 'view_dokumens'])->name('admin.dokumen.view');
+Route::get('/show-pdf/{id}', [App\Http\Controllers\DokumenController::class, 'showPdf'])->name('admin.show_pdf.view');
+
+Route::get('/open-pdf/{id}', [App\Http\Controllers\DokumenController::class, 'openPdf'])->name('admin.open_pdf.view');
+
+
+Route::get('/download/{id}',  [App\Http\Controllers\DokumenController::class, 'downloadFile'])->name('pdf.download');
+
 
 //SURAT MASUK
 

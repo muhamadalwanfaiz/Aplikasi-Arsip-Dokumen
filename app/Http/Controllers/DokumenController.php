@@ -6,8 +6,9 @@ use App\Models\Dokumen;
 use App\Models\JenisDokumen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
 
 class DokumenController extends Controller
 {
@@ -125,9 +126,22 @@ class DokumenController extends Controller
         ]);
     }
 
-    public function view_dokumens($id)
+    public function downloadFile($id)
     {
-        $dok = Dokumen::find($id);
-        return view('view_dokumen', compact('dok'));
+        $file = Dokumen::find($id);
+        $filePath = $file->file_dokumen;
+        $path = storage_path('app/public/file_dokumen/' . $filePath);
+
+        if (!Storage::exists('public/file_dokumen/' . $filePath)) {
+            abort(404);
+        }
+
+        return response()->download('storage/file_dokumen/' . $filePath);
+
+        $notification = array(
+            'message' => 'Data Dokumen berhasil diunduh',
+            'alert-type' => 'success',
+        );
+        return redirect()->route('admin.dokumen')->with($notification);
     }
 }
