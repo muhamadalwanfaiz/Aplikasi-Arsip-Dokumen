@@ -8,6 +8,7 @@ use App\Models\SuratMasuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class SuratMasukController extends Controller
 {
@@ -127,7 +128,7 @@ class SuratMasukController extends Controller
         ]);
     }
 
-    public function downloadFile($id)
+    public function downloadFileSuratMasuk($id)
     {
         $file = SuratMasuk::find($id);
         $filePath = $file->file_surat_masuk;
@@ -138,12 +139,14 @@ class SuratMasukController extends Controller
         }
 
         return response()->download('storage/file_surat_masuk/' . $filePath);
+    }
 
-        $notification = array(
-            'message' => 'Data Dokumen berhasil diunduh',
-            'alert-type' => 'success',
-        );
-        return redirect()->route('admin.surat_masuk')->with($notification);
+    public function print_surat_masuk()
+    {
+        $surat = SuratMasuk::all();
+
+        $pdf = PDF::loadview('print_surat_masuk',['surat' => $surat])-> setPaper ( 'a4' , 'landscape' );;
+        return $pdf->download('data_surat_masuk.pdf');
     }
 
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use PDF;
 
 class SuratKeluarController extends Controller
 {
@@ -127,7 +128,7 @@ class SuratKeluarController extends Controller
         ]);
     }
 
-    public function downloadFile($id)
+    public function downloadFileSuratKeluar($id)
     {
         $file = SuratKeluar::find($id);
         $filePath = $file->file_surat_keluar;
@@ -138,11 +139,13 @@ class SuratKeluarController extends Controller
         }
 
         return response()->download('storage/file_surat_keluar/' . $filePath);
+    }
 
-        $notification = array(
-            'message' => 'Data Dokumen berhasil diunduh',
-            'alert-type' => 'success',
-        );
-        return redirect()->route('admin.surat_keluar')->with($notification);
+    public function print_surat_keluar()
+    {
+        $surat = SuratKeluar::all();
+
+        $pdf = PDF::loadview('print_surat_keluar',['surat' => $surat])-> setPaper ( 'a4' , 'landscape' );;
+        return $pdf->download('data_surat_keluar.pdf');
     }
 }

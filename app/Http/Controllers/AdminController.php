@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokter;
+use App\Models\Dokumen;
 use App\Models\JenisDokumen;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\SuratKeluar;
+use App\Models\SuratMasuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +23,13 @@ class AdminController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('home', compact('user'));
+
+        $countDokumen = Dokumen::count();
+        $countSuratMasuk = SuratMasuk::count();
+        $countSuratKeluar = SuratKeluar::count();
+        $countUser = User::count();
+
+        return view('home', compact('user','countDokumen','countSuratMasuk','countSuratKeluar','countUser'));
     }
 
     // VIEW DATA PASIEN

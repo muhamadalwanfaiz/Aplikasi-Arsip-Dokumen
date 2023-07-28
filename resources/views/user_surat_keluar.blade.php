@@ -38,7 +38,7 @@
                             <td>{{$keluar->nama_surat}}</td>
                             <td>{{$keluar->keterangan}}</td>
                             <td class="text-center">
-                                <a href="{{ route('pdf.download', ['id' => $keluar->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
+                                <a href="{{ route('pdf.download_surat_keluar', ['id' => $keluar->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
                             </td>
                         </tr>
                     @endforeach

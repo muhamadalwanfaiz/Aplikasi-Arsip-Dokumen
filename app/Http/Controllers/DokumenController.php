@@ -126,7 +126,7 @@ class DokumenController extends Controller
         ]);
     }
 
-    public function downloadFile($id)
+    public function downloadFileDokumen($id)
     {
         $file = Dokumen::find($id);
         $filePath = $file->file_dokumen;
@@ -137,11 +137,5 @@ class DokumenController extends Controller
         }
 
         return response()->download('storage/file_dokumen/' . $filePath);
-
-        $notification = array(
-            'message' => 'Data Dokumen berhasil diunduh',
-            'alert-type' => 'success',
-        );
-        return redirect()->route('admin.dokumen')->with($notification);
     }
 }

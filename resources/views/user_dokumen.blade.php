@@ -36,7 +36,7 @@
                             <td>{{ \Carbon\Carbon::parse($dok->created_at)->format('d/m/Y')}}</td>
                             <td>{{$dok->keterangan}}</td>
                             <td class="text-center">
-                                <a href="{{ route('pdf.download', ['id' => $dok->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
+                                <a href="{{ route('pdf.download_dokumen', ['id' => $dok->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
                             </td>
                         </tr>
                     @endforeach

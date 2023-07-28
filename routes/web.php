@@ -52,7 +52,7 @@ Route::get('/admin/ajaxadmin/dataDokumen/{id}', [App\Http\Controllers\DokumenCon
 
 Route::post('admin/dokumens/delete/{id}', [App\Http\Controllers\DokumenController::class, 'delete_dokumen'])->name('admin.dokumen.delete')->middleware('is_admin');
 
-Route::get('/download/{id}',  [App\Http\Controllers\DokumenController::class, 'downloadFile'])->name('pdf.download');
+Route::get('/download/dokumen/{id}',  [App\Http\Controllers\DokumenController::class, 'downloadFileDokumen'])->name('pdf.download_dokumen');
 
 
 //SURAT MASUK
@@ -67,7 +67,9 @@ Route::get('/admin/ajaxadmin/dataSuratMasuk/{id}', [App\Http\Controllers\SuratMa
 
 Route::post('admin/surat_masuks/delete/{id}', [App\Http\Controllers\SuratMasukController::class, 'delete_surat_masuk'])->name('admin.surat_masuk.delete')->middleware('is_admin');
 
-Route::get('/download/{id}',  [App\Http\Controllers\SuratMasukController::class, 'downloadFile'])->name('pdf.download');
+Route::get('/download/surat_masuk/{id}',  [App\Http\Controllers\SuratMasukController::class, 'downloadFileSuratMasuk'])->name('pdf.download_surat_masuk');
+
+Route::get('admin/print_surat_masuks', [App\Http\Controllers\SuratMasukController::class, 'print_surat_masuk'])->name('admin.surat_masuk.print')->middleware('is_admin');
 
 //SURAT KELUAR
 
@@ -81,12 +83,9 @@ Route::get('/admin/ajaxadmin/dataSuratKeluar/{id}', [App\Http\Controllers\SuratK
 
 Route::post('admin/surat_keluars/delete/{id}', [App\Http\Controllers\SuratKeluarController::class, 'delete_surat_keluar'])->name('admin.surat_keluar.delete')->middleware('is_admin');
 
-Route::get('/download/{id}',  [App\Http\Controllers\SuratKeluarController::class, 'downloadFile'])->name('pdf.download');
+Route::get('/download/surat_keluar/{id}',  [App\Http\Controllers\SuratKeluarController::class, 'downloadFileSuratKeluar'])->name('pdf.download_surat_keluar');
 
-//SEMUA SURAT
-
-
-Route::get('admin/dokters', [App\Http\Controllers\AdminController::class, 'dokters'])->name('admin.dokters')->middleware('is_admin');
+Route::get('admin/print_surat_keluars', [App\Http\Controllers\SuratKeluarController::class, 'print_surat_keluar'])->name('admin.surat_keluar.print')->middleware('is_admin');
 
 
 // kelola user
@@ -104,8 +103,8 @@ Route::post('admin/kelola_users/delete/{id}', [App\Http\Controllers\AdminControl
 
 // Halaman yang dapat diakses oleh user
 
-Route::get('user/dokumens', [App\Http\Controllers\UserDokumenController::class, 'dokumens'])->name('admin.dokumen');
+Route::get('user/dokumens', [App\Http\Controllers\UserDokumenController::class, 'dokumens'])->name('user.dokumen');
 
-Route::get('user/surat_masuks', [App\Http\Controllers\UserSuratMasukController::class, 'surat_masuks'])->name('admin.surat_masuk');
+Route::get('user/surat_masuks', [App\Http\Controllers\UserSuratMasukController::class, 'surat_masuks'])->name('user.surat_masuk');
 
-Route::get('user/surat_keluars', [App\Http\Controllers\UserSuratKeluarController::class, 'surat_keluars'])->name('admin.surat_keluar');
+Route::get('user/surat_keluars', [App\Http\Controllers\UserSuratKeluarController::class, 'surat_keluars'])->name('user.surat_keluar');

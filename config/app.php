@@ -165,7 +165,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        /* provider barryvhpdf */
+        Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -175,8 +176,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /* provider barryvhpdf */
-        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 

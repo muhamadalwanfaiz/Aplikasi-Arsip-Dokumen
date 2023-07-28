@@ -16,6 +16,7 @@
             <button class="btn btn-primary" data-toggle="modal" data-target="#tambahSuratMasuk">
                 <i class="fa fa-plus mx-1"></i>Tambah Data
             </button>
+            <a href="{{ route('admin.surat_masuk.print') }}" target="_blank"><button class="btn btn-secondary"><i class="fa fa-print mx-1"></i>Cetak PDF</button></a>
             <hr/>
             <table id="table-data" class="table table-bordered">
                 <thead>
@@ -38,11 +39,11 @@
                             <td class="text-center">{{$no++}}</td>
                             <td>{{$masuk->kode}}</td>
                             <td>{{$masuk->no_surat}}</td>
-                            <td>{{ \Carbon\Carbon::parse($masuk->created_at)->format('d/m/Y')}}</td>
+                            <td>{{ \Carbon\Carbon::parse($masuk->created_at)->format('d-m-Y')}}</td>
                             <td>{{$masuk->nama_surat}}</td>
                             <td>{{$masuk->keterangan}}</td>
                             <td class="text-center">
-                                <a href="{{ route('pdf.download', ['id' => $masuk->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
+                                <a href="{{ route('pdf.download_surat_masuk', ['id' => $masuk->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
                                 <button type="button" id="btn-edit-suratMasuk" class="btn btn-warning" data-toggle="modal" data-target="#editSuratMasuk" data-id="{{ $masuk->id }}"><i class="fas fa-fw fa-edit"></i></button>
                                 <button type="button" id="btn-delete-suratMasuk" class="btn btn-danger" onclick="deleteConfirmation('{{$masuk->id}}','{{$masuk->nama_surat}}')"><i class="fas fa-fw fa-trash"></i></button>
                             </td>
@@ -68,7 +69,7 @@
                     @csrf
                         <div class="form-group">
                             <label for="kode">Kode</label>
-                            <input type="text" class="form-control" name="kode" id="kode" required>
+                            <input type="text" class="form-control" name="kode" id="kode" oninput="updateInput2()" required>
                         </div>
                         <div class="form-group">
                             <label for="no_surat">No Surat</label>
@@ -231,5 +232,17 @@
                 return false;
             })
         }
+
+
+    function updateInput2() {
+        // Mendapatkan nilai dari input pertama
+        var input1Value = document.getElementById("kode").value;
+
+        // Menambahkan tanda garis miring (/) pada nilai input pertama dan menyimpannya ke input kedua
+        var newValue = input1Value + "/";
+
+        // Menyimpan nilai dari input pertama ke input kedua
+        document.getElementById("no_surat").value = newValue;
+    }
     </script>
 @stop
