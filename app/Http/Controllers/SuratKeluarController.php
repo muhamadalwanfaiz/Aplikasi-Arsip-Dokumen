@@ -107,7 +107,7 @@ class SuratKeluarController extends Controller
 
         $surk->save();
         $notification = array(
-            'message' => 'Data Surat Masuk berhasil diubah',
+            'message' => 'Data Surat Keluar berhasil diubah',
             'alert-type' => 'success'
         );
         return redirect()->route('admin.surat_keluar')->with($notification);

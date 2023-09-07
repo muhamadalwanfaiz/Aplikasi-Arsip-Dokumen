@@ -49,7 +49,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-users mx-2"></i>Tambah Data Jenis Dokumen</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-file mx-2"></i>Tambah Data Jenis Dokumen</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,7 +128,7 @@
             swal.fire({
                 title: "Hapus",
                 type: 'warning',
-                text: "Apakah anda yakin akan menghapus data Jenis Dokumen : " + nama +"?!",
+                text: "Apakah anda yakin akan menghapus data Kategori : " + nama +"?!",
                 showCancelButton: !0,
                 confirmButtonText: "Ya lakukan",
                 cancelButtonText: "Tidak, batalkan!",

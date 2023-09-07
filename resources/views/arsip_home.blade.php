@@ -74,7 +74,7 @@
                             <a href="{{ url('/home') }}"><button type="button" class="home btn btn-success">Home</button></a>
                         @else
                             {{-- <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a> --}}
-                            <a href="{{ route('login') }}"><button type="button" class="login btn btn-success">Login</button></a>
+                            <a href="{{ route('login') }}"><button type="button" class="login btn btn-success">Sign In</button></a>
                         @endauth
                 @endif
                 </div>

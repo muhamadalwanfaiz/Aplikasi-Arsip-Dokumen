@@ -13,6 +13,10 @@
             {{ __('Surat Masuk') }}
         </div>
         <div class="card-body">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#">
+                <i class="fa fa-plus mx-1"></i>Tambah Data
+            </button>
+            <hr/>
             <table id="table-data" class="table table-bordered">
                 <thead>
                     <tr class="text-center">

@@ -59,7 +59,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-users mx-2"></i>Tambah Data Surat Keluar</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-envelope mx-2"></i>Tambah Data Surat Keluar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

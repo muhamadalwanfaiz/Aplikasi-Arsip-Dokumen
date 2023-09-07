@@ -53,7 +53,7 @@ class AdminController extends Controller
 
         $jenis_dok->save();
         $notification = array(
-            'message' => 'Data jenis dokumen berhasil ditambahkan',
+            'message' => 'Data Kategori berhasil ditambahkan',
             'alert-type' => 'success'
         );
 
@@ -81,7 +81,7 @@ class AdminController extends Controller
         $jenis_dok->save();
 
         $notification = array(
-            'message' => 'Data jenis dokumen berhasil diubah',
+            'message' => 'Data Kategori berhasil diubah',
             'alert-type' => 'success'
         );
 
@@ -97,7 +97,7 @@ class AdminController extends Controller
         $jenis_dok->delete();
 
         $success = true;
-        $message = "Data jenis dokumen berhasil dihapus";
+        $message = "Data Kategori berhasil dihapus";
 
         return response()->json([
             'success' => $success,
@@ -140,7 +140,7 @@ class AdminController extends Controller
         );
         
 
-        return redirect()->route('admin.jenis_dokumen')->with($notification);
+        return redirect()->route('admin.kelola_users')->with($notification);
     }
 
     public function getDataUser($id)
