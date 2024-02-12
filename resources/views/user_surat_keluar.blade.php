@@ -13,7 +13,7 @@
             {{ __('Surat Keluar') }}
         </div>
         <div class="card-body">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahSuratKeluar">
                 <i class="fa fa-plus mx-1"></i>Tambah Data
             </button>
             <hr/>
@@ -34,6 +34,7 @@
                         $no=1;
                     @endphp
                     @foreach($surat_keluar as $keluar)
+                    @if($user->name == $keluar->username)
                         <tr>
                             <td class="text-center">{{$no++}}</td>
                             <td>{{$keluar->kode}}</td>
@@ -45,10 +46,79 @@
                                 <a href="{{ route('pdf.download_surat_keluar', ['id' => $keluar->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
                             </td>
                         </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="tambahSuratKeluar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-envelope mx-2"></i>Tambah Data Surat Keluar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ route ('user.surat_keluar.submit') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="kode">Kode</label>
+                        <input type="text" class="form-control" name="kode" id="kode"  oninput="updateInput2()" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="no_surat">No Surat</label>
+                        <input type="text" class="form-control" name="no_surat" id="no_surat" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_dokumens_id">Jenis Dokumen</label>
+                        <select name="jenis_dokumens_id" class="form-control" id="jenis_dokumens_id" required>
+                            <option value="" hidden>-- pilih jenis dokumen --</option>
+                            @foreach($jenis_dokumens as $key => $value)
+                                <option value="{{ $value->id }}">{{ $value->jenis_dokumen }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nama_surat">Nama Surat</label>
+                        <input type="text" class="form-control" name="nama_surat" id="nama_surat" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan</label>
+                        <input type="text" class="form-control" name="keterangan" id="keterangan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="file_surat_keluar">File Surat Masuk</label>
+                        <input type="file" class="form-control" name="file_surat_keluar" id="file_surat_keluar" required>
+                    </div>
+                        <input type="hidden" name="username" id="username" value="{{ $user->name }}" readonly>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Kirim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
+
+@section('js')
+    <script>
+        function updateInput2() {
+            // Mendapatkan nilai dari input pertama
+            var input1Value = document.getElementById("kode").value;
+
+            // Menambahkan tanda garis miring (/) pada nilai input pertama dan menyimpannya ke input kedua
+            var newValue = input1Value + "/";
+
+            // Menyimpan nilai dari input pertama ke input kedua
+            document.getElementById("no_surat").value = newValue;
+        }
+    </script>
+@stop

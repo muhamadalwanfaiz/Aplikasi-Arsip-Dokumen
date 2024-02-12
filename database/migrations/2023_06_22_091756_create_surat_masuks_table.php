@@ -21,6 +21,7 @@ class CreateSuratMasuksTable extends Migration
             $table->string('keterangan');
             $table->foreignId('jenis_dokumens_id')->constrained();
             $table->string('file_surat_masuk');
+            $table->string('username');
             $table->timestamps();
         });
     }

@@ -105,6 +105,12 @@ Route::post('admin/kelola_users/delete/{id}', [App\Http\Controllers\AdminControl
 
 Route::get('user/dokumens', [App\Http\Controllers\UserDokumenController::class, 'dokumens'])->name('user.dokumen');
 
+Route::post('user/dokumen', [App\Http\Controllers\UserDokumenController::class, 'submit_dokumen_user'])->name('user.dokumen.submit');
+
 Route::get('user/surat_masuks', [App\Http\Controllers\UserSuratMasukController::class, 'surat_masuks'])->name('user.surat_masuk');
 
+Route::post('user/surat_masuk', [App\Http\Controllers\UserSuratMasukController::class, 'submit_surat_masuk_user'])->name('user.surat_masuk.submit');
+
 Route::get('user/surat_keluars', [App\Http\Controllers\UserSuratKeluarController::class, 'surat_keluars'])->name('user.surat_keluar');
+
+Route::post('user/surat_keluar', [App\Http\Controllers\UserSuratKeluarController::class, 'submit_surat_keluar_user'])->name('user.surat_keluar.submit');

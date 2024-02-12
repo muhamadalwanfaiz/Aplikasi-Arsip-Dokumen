@@ -30,4 +30,42 @@ class UserSuratKeluarController extends Controller
 
         return view('user_surat_keluar',compact('user', 'surat_keluar', 'jenis_dokumens'));
     }
+
+    public function submit_surat_keluar_user(Request $req)
+    {
+        $validate = $req->validate([
+            'kode' => 'required',
+            'no_surat' => 'required',
+            'nama_surat' => 'required',
+            'keterangan' => 'required',
+            'jenis_dokumens_id' => 'required',
+            'username' => 'required',
+        ]);
+
+        $surk = new SuratKeluar();
+        $surk->kode = $req->get('kode');
+        $surk->no_surat = $req->get('no_surat');
+        $surk->jenis_dokumens_id = $req->get('jenis_dokumens_id');
+        $surk->nama_surat = $req->get('nama_surat');
+        $surk->keterangan = $req->get('keterangan');
+        $surk->username = $req->get('username');
+        
+        if($req->hasFile('file_surat_keluar')) {
+            $extension = $req->file('file_surat_keluar')->extension();
+
+            $filename = 'file_surat_keluar_'.time().'.'.$extension;
+
+            $req->file('file_surat_keluar')->storeAs('public/file_surat_keluar', $filename);
+
+            $surk->file_surat_keluar = $filename;
+        }
+
+        $surk->save();
+
+        $notification = array(
+            'message' => 'Data Surat Keluar Berhasil ditambahkan',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('user.surat_keluar')->with($notification);
+    }
 }

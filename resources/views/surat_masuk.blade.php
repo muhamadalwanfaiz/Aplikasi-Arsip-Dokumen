@@ -96,6 +96,7 @@
                             <label for="file_surat_masuk">File Surat Masuk</label>
                             <input type="file" class="form-control" name="file_surat_masuk" id="file_surat_masuk" required>
                         </div>
+                            <input type="hidden" name="username" id="username" value="{{ $user->name }}" readonly>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

@@ -20,7 +20,8 @@ class CreateSuratKeluarsTable extends Migration
             $table->string('nama_surat');
             $table->string('keterangan');
             $table->foreignId('jenis_dokumens_id')->constrained();
-            $table->string('file_surat_masuk');
+            $table->string('file_surat_keluar');
+            $table->string('username');
             $table->timestamps();
         });
     }

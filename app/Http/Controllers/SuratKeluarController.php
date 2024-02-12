@@ -41,6 +41,7 @@ class SuratKeluarController extends Controller
             'nama_surat' => 'required',
             'keterangan' => 'required',
             'jenis_dokumens_id' => 'required',
+            'username' => 'required',
         ]);
 
         $surk = new SuratKeluar();
@@ -49,6 +50,7 @@ class SuratKeluarController extends Controller
         $surk->jenis_dokumens_id = $req->get('jenis_dokumens_id');
         $surk->nama_surat = $req->get('nama_surat');
         $surk->keterangan = $req->get('keterangan');
+        $surk->username = $req->get('username');
         
         if($req->hasFile('file_surat_keluar')) {
             $extension = $req->file('file_surat_keluar')->extension();

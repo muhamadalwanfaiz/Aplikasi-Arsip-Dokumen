@@ -18,7 +18,8 @@ class CreateDokumensTable extends Migration
             $table->string('nama_dokumen');
             $table->foreignId('jenis_dokumens_id')->constrained();
             $table->string('keterangan');
-            $table->string('file_dokumen')->nullable();
+            $table->string('file_dokumen');
+            $table->string('username');
             $table->timestamps();
         });
     }

@@ -40,12 +40,14 @@ class DokumenController extends Controller
             'nama_dokumen' => 'required',
             'jenis_dokumens_id' => 'required',
             'keterangan' => 'required',
+            'username' => 'required',
         ]);
 
         $dok = new Dokumen();
         $dok->nama_dokumen = $req->get('nama_dokumen');
         $dok->jenis_dokumens_id = $req->get('jenis_dokumens_id');
         $dok->keterangan = $req->get('keterangan');
+        $dok->username = $req->get('username');
         
         if($req->hasFile('file_dokumen')) {
             $extension = $req->file('file_dokumen')->extension();

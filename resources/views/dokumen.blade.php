@@ -25,6 +25,7 @@
                         <th>JENIS DOKUMEN</th>
                         <th>TANGGAL</th>
                         <th>KETERANGAN</th>
+                        <th>USER</th>
                         <th>AKSI</th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@
                             <td>{{$dok->relationToJenisDokumen->jenis_dokumen}}</td>
                             <td>{{ \Carbon\Carbon::parse($dok->created_at)->format('d/m/Y')}}</td>
                             <td>{{$dok->keterangan}}</td>
+                            <td>{{$dok->username}}</td>
                             <td class="text-center">
                                 <a href="{{ route('pdf.download_dokumen', ['id' => $dok->id]) }}"><button type="button" class="btn btn-success"><i class="fas fa-fw fa-download"></i></button></a>
                                 <button type="button" id="btn-edit-dokumen" class="btn btn-warning" data-toggle="modal" data-target="#editDokModal" data-id="{{ $dok->id }}"><i class="fas fa-fw fa-edit"></i></button>
@@ -86,6 +88,7 @@
                             <label for="file_dokumen">File Dokumen</label>
                             <input type="file" class="form-control" name="file_dokumen" id="file_dokumen" required>
                         </div>
+                            <input type="hidden" name="username" id="username" value="{{ $user->name }}" readonly>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -130,7 +133,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="edit-old_file_dokumen">Nama File Dokumen</label>
-                                <input type="text" class="form-control" name="file_dokumen" id="edit-old_file_dokumen" readonly>
+                                <input type="hidden" class="form-control" name="file_dokumen" id="edit-old_file_dokumen" readonly>
                             </div>
                             <div class="form-group" id="file_dokumen_area">
                                 <label for="edit-file_dokumen">Unggah File Dokumen Baru</label>
